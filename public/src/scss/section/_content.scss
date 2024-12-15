@@ -6,4 +6,76 @@
   img {
     width: 100%;
   }
+
+  .common {
+    width: 50%;
+    position: relative;
+  }
+
+  .img {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9;
+    // opacity: 0;
+  }
+
+  .text {
+    position: absolute;
+    bottom: 80px;
+    left: 0px;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+
+    h1 {
+      font-size: 82px;
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    h5 {
+      font-size: 28px;
+      font-weight: 400;
+      text-transform: uppercase;
+      font-family: "Playfair Display", serif;
+    }
+  }
+
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .btn a {
+    display: inline-block;
+    border: 1px solid #fff;
+    padding: 25px 60px;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: all ease 0.5s;
+  }
+
+  .btn a:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .common:hover .btn a {
+    opacity: 1;
+  }
 }

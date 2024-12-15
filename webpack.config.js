@@ -5,12 +5,14 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./public/src/index.js",
+  entry: {
+    main: "./public/index.js"
+  },
   output: {
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
-    publicPath: "/",
+    publicPath: "/"
   },
   module: {
     rules: [
@@ -29,24 +31,27 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/src/index.html",
-      favicon: path.resolve(__dirname, "public/assets/favicon/favicon.png"),
+      template: "./public/index.html",
+      favicon: "./public/assets/favicon/favicon.png"
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: "css/[name].css"
     }),
     new CopyPlugin({
       patterns: [
-        { 
-          from: "public/assets", 
-          to: "assets" 
+        {
+          from: "./public/assets",
+          to: "assets"
         }
-      ],
-    }),
+      ]
+    })
   ],
   devServer: {
-    static: ["./dist", "./public"],
+    static: {
+      directory: path.join(__dirname, "dist"),
+      publicPath: "/"
+    },
     hot: true,
-    open: true,
+    open: true
   },
 };

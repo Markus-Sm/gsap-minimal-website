@@ -1,47 +1,52 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
+  mode: "development",
+  entry: "./public/src/index.js",
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
     clean: true,
-    publicPath: '/'
+    publicPath: "/",
   },
   module: {
     rules: [
       {
         test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'assets/[name][ext]'
-        }
-      }
+          filename: "assets/[name][ext]",
+        },
+      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      favicon: path.resolve(__dirname, 'src/assets/favicon/favicon.png')
+      template: "./public/src/index.html",
+      favicon: path.resolve(__dirname, "public/assets/favicon/favicon.png"),
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: "[name].css",
+    }),
+    new CopyPlugin({
+      patterns: [
+        { 
+          from: "public/assets", 
+          to: "assets" 
+        }
+      ],
     }),
   ],
   devServer: {
-    static: './dist',
+    static: ["./dist", "./public"],
     hot: true,
-    open: true
+    open: true,
   },
 };

@@ -9,6 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -20,11 +21,19 @@ module.exports = {
           'sass-loader',
         ],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]'
+        }
+      }
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      favicon: path.resolve(__dirname, 'src/assets/favicon/favicon.png')
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -33,5 +42,6 @@ module.exports = {
   devServer: {
     static: './dist',
     hot: true,
+    open: true
   },
 };
